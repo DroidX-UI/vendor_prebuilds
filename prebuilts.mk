@@ -11,8 +11,10 @@
 include $(call first-makefiles-under,$(LOCAL_PATH))
 
 # DotGallery
+ifeq ($(TARGET_BUILD_DOTGALLERY),true)
 PRODUCT_PACKAGES += \
     DotGallery
 
 PRODUCT_COPY_FILES += \
     vendor/prebuilts/permissions/privapp-permissions-dotgallery.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-dotgallery.xml
+endif
