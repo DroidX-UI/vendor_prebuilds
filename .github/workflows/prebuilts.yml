@@ -1,0 +1,65 @@
+name: Prebuilt APKs updater
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 0" # Run every Sunday at 9 AM IST (3:30 AM UTC)
+
+jobs:
+  update-apps:
+    runs-on: ubuntu-latest
+
+    env:
+      ACCESS_TOKEN: ${{ secrets.TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "adopt"
+          java-version: "11"
+
+      - name: Download DotGallery APK
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "IacobIonut01/Gallery"
+          latest: true
+          fileName: "*.apk"
+
+      - name: Move APKs
+        run: |
+          rm -f *nomaps*.apk
+          mv Gallery*.apk DotGallery/DotGallery.apk
+
+      - name: Check for Updated Apps
+        id: check_updates
+        run: |
+          CHANGED_FILES=$(git diff --name-only)
+          UPDATED_APPS=""
+
+          if echo "$CHANGED_FILES" | grep -q "DotGallery"; then
+            UPDATED_APPS+="DotGallery, "
+          fi
+
+          if [ -n "$UPDATED_APPS" ]; then
+            echo "UPDATED_APPS=$UPDATED_APPS" >> $GITHUB_ENV
+          else
+            echo "No apps updated, skipping further steps."
+            exit 0
+          fi
+
+      - name: Commit Changes
+        run: |
+          git config --local user.email "abhinav.115260@gmail.com"
+          git config --local user.name "hipexscape"
+          UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
+          git add .
+          git commit -sm "prebuilts: Update $UPDATED_APPS to latest"
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ env.ACCESS_TOKEN }}
