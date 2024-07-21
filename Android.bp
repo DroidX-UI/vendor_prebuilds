@@ -10,3 +10,15 @@ android_app_import {
 	product_specific: true,
 	overrides: ["Gallery2" , "Glimpse"],
 }
+
+android_app_import {
+	name: "BCR",
+	apk: "BCR/BCR.apk",
+	presigned: true,
+	dex_preopt: {
+		enabled: false,
+	},
+        preprocessed: true,
+	privileged: true,
+	product_specific: true,
+}

@@ -18,3 +18,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/prebuilds/permissions/privapp-permissions-dotgallery.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-dotgallery.xml
 endif
+
+# Basic Call Recorder
+PRODUCT_PACKAGES += \
+   BCR
+
+PRODUCT_COPY_FILES += \
+   vendor/prebuilds/permissions/privapp-permissions-com.chiller3.bcr.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-com.chiller3.bcr.xml \
+   vendor/prebuilds/etc/sysconfig/config-com.chiller3.bcr.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/config-com.chiller3.bcr.xml
