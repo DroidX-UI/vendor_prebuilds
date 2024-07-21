@@ -53,8 +53,8 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git config --local user.email "abhinav.115260@gmail.com"
-          git config --local user.name "hipexscape"
+          git config --local user.email "droidxuibot@gmail.com"
+          git config --local user.name "TheDroidxBot"
           UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
           git add .
           git commit -sm "prebuilts: Update $UPDATED_APPS to latest"
