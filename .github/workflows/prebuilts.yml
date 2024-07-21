@@ -57,7 +57,7 @@ jobs:
           git config --local user.name "TheDroidxBot"
           UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
           git add .
-          git commit -sm "prebuilts: Update $UPDATED_APPS to latest"
+          git commit -sm "prebuilts: Incorporate latest $UPDATED_APPS improvements"
 
       - name: Push Changes
         uses: ad-m/github-push-action@master
