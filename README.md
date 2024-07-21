@@ -8,5 +8,6 @@ To Include DotGallery:
 ---------------------
 
 Add the following line to your device's droidx_device.mk file:
-`
+```bash
 TARGET_BUILD_DOTGALLERY := true
+```
