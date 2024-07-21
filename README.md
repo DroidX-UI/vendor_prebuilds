@@ -1,8 +1,8 @@
 Notes for developers
 ====================
-This directory contains prebuilts for various android apps which you can implement in your build while building the ROM.
+This directory contains prebuilds for various android apps which you can implement in your build while building the ROM.
 
-The prebuilts are in the form of apk files and are placed in the vendor/prebuilts directory.
+The prebuilds are in the form of apk files and are placed in the vendor/prebuilds directory.
 
 To Include DotGallery:
 ---------------------

@@ -16,5 +16,5 @@ PRODUCT_PACKAGES += \
     DotGallery
 
 PRODUCT_COPY_FILES += \
-    vendor/prebuilts/permissions/privapp-permissions-dotgallery.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-dotgallery.xml
+    vendor/prebuilds/permissions/privapp-permissions-dotgallery.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-dotgallery.xml
 endif
