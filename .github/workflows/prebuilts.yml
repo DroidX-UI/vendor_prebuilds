@@ -34,6 +34,27 @@ jobs:
           rm -f *nomaps*.apk
           mv Gallery*.apk DotGallery/DotGallery.apk
 
+      - name: Download latest release .zip
+        uses: robinraju/release-downloader@v1.8
+        with:
+        repository: "chenxiaolong/BCR/"
+          latest: true
+          file_name: BCR*.zip
+
+      - name: Extract BCR*.zip
+        run: unzip BCR*.zip
+
+      - name: Move app-release.apk to BCR directory
+        run: |
+          shopt -s nullglob
+          mv extracted/system/priv-app/com.chiller3.bcr/app-release.apk BCR/ || true
+
+      - name: Rename BCR.apk
+        run: mv BCR/app-release.apk BCR.apk
+
+      - name: Clean up
+        run: rm -rf BCR.zip extracted/
+        
       - name: Check for Updated Apps
         id: check_updates
         run: |
