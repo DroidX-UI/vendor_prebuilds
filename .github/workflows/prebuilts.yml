@@ -37,12 +37,12 @@ jobs:
       - name: Download latest release .zip
         uses: robinraju/release-downloader@v1.8
         with:
-        repository: "chenxiaolong/BCR/"
+          repository: "chenxiaolong/BCR"
           latest: true
-          file_name: BCR*.zip
+          fileName: BCR*.zip
 
       - name: Extract BCR*.zip
-        run: unzip BCR*.zip
+        run: unzip BCR*.zip -d extracted
 
       - name: Move app-release.apk to BCR directory
         run: |
@@ -50,10 +50,10 @@ jobs:
           mv extracted/system/priv-app/com.chiller3.bcr/app-release.apk BCR/ || true
 
       - name: Rename BCR.apk
-        run: mv BCR/app-release.apk BCR.apk
+        run: mv BCR/app-release.apk BCR/BCR.apk
 
       - name: Clean up
-        run: rm -rf BCR.zip extracted/
+        run: rm -rf BCR*.zip extracted/
         
       - name: Check for Updated Apps
         id: check_updates
@@ -63,6 +63,10 @@ jobs:
 
           if echo "$CHANGED_FILES" | grep -q "DotGallery"; then
             UPDATED_APPS+="DotGallery, "
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q "BCR"; then
+            UPDATED_APPS+="BCR, "
           fi
 
           if [ -n "$UPDATED_APPS" ]; then
@@ -76,9 +80,14 @@ jobs:
         run: |
           git config --local user.email "droidxuibot@gmail.com"
           git config --local user.name "TheDroidxBot"
-          UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
-          git add .
-          git commit -sm "prebuilts: Incorporate latest $UPDATED_APPS improvements"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
+            git add .
+            git commit -sm "prebuilts: Incorporate latest $UPDATED_APPS improvements"
+          else
+            echo "No changes to commit."
+          fi
 
       - name: Push Changes
         uses: ad-m/github-push-action@master
