@@ -81,6 +81,7 @@ jobs:
           git config --local user.email "droidxuibot@gmail.com"
           git config --local user.name "TheDroidxBot"
           curl -sL "https://raw.githubusercontent.com/hipexscape/Scripts/tsm/commit_id.sh" | bash
+          git lfs install
 
           if [ -n "$(git status --porcelain)" ]; then
             UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
