@@ -35,6 +35,7 @@ jobs:
       - name: Move APKs
         run: |
           rm -f *nomaps*.apk
+          rm -f $(ls Gallery*.apk | grep -v "universal")
           mv -f Gallery*.apk DotGallery/DotGallery.apk
 
       - name: Download latest release .zip
