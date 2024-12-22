@@ -35,7 +35,7 @@ jobs:
       - name: Move APKs
         run: |
           rm -f *nomaps*.apk
-          mv Gallery*.apk DotGallery/DotGallery.apk
+          mv -f Gallery*.apk DotGallery/DotGallery.apk
 
       - name: Download latest release .zip
         uses: robinraju/release-downloader@v1.8
@@ -50,10 +50,10 @@ jobs:
       - name: Move app-release.apk to BCR directory
         run: |
           shopt -s nullglob
-          mv extracted/system/priv-app/com.chiller3.bcr/app-release.apk BCR/ || true
+          mv -f extracted/system/priv-app/com.chiller3.bcr/app-release.apk BCR/ || true
 
       - name: Rename BCR.apk
-        run: mv BCR/app-release.apk BCR/BCR.apk
+        run: mv -f BCR/app-release.apk BCR/BCR.apk
 
       - name: Clean up
         run: rm -rf BCR*.zip extracted/
