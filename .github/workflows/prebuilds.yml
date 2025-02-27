@@ -1,4 +1,4 @@
-name: Prebuilt APKs updater
+name: Prebuild APKs updater
 
 on:
   workflow_dispatch:
@@ -90,12 +90,12 @@ jobs:
         run: |
           git config --local user.email "droidxuibot@gmail.com"
           git config --local user.name "TheDroidxBot"
-          curl -sL "https://raw.githubusercontent.com/hipexscape/Scripts/tsm/commit_id.sh" | bash
+          curl -Lo .git/hooks/commit-msg https://raw.githubusercontent.com/hipexscape/Scripts/tsm/commit_id.sh && chmod +x .git/hooks/commit-msg && git config --global core.hooksPath .git/hooks
 
           if [ -n "$(git status --porcelain)" ]; then
             UPDATED_APPS=$(echo $UPDATED_APPS | sed 's/,$//')
             git add .
-            git commit -sm "prebuilts: Incorporate latest $UPDATED_APPS improvements"
+            git commit -sm "prebuilds: Incorporate latest $UPDATED_APPS improvements"
           else
             echo "No changes to commit."
           fi
